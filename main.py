@@ -12,5 +12,5 @@ auth.set_access_token(TOKEN, TOKEN_SECRET)
 api = tweepy.API(auth)
 api.update_status(line)
 
-print("@nthpiday tweeted @ {}:\n{}".format(time.ctime(),line))
+print("@{} tweeted @ {}:\n{}".format(api.me().screen_name, time.ctime(),line))
 
