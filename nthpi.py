@@ -51,7 +51,9 @@ def write_message():
         n = find_sequence_in_list(pi_digits, date_digits)
 
     s = ''
-    if n % 10 == 1:
+    if 11 <= n % 100 <= 13:
+        s = 'th'
+    elif n % 10 == 1:
         s = 'st'
     elif n % 10 == 2:
         s = 'nd'
