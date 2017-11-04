@@ -30,18 +30,28 @@ def find_sequence_in_list(base_list, sequence):
                 return i
     return -1
 
+def number_to_suffix(number):
+    if 11 <= number % 100 <= 13:
+        return 'th'
+    elif number % 10 == 1:
+        return 'st'
+    elif number % 10 == 2:
+        return 'nd'
+    elif number % 10 == 3:
+        return 'rd'
+    else:
+        return 'th'
+
 def write_message():
-    start_date = date.today().replace(day=1, month=1).toordinal()
-    end_date = date.today().toordinal()
-    random_date = date.fromordinal(random.randint(start_date, end_date))
-    formatted_date = int(str(random_date.month) + str(random_date.day))
+    today = date.today()
+    formatted_date = int(str(today.month) + str(today.day))
     date_digits = number_to_digit_list(formatted_date)
     
     precision = 20000
     pi = get_pi(precision)
     pi_digits = number_to_digit_list(pi)
     
-    d = random_date.strftime('%B %-d')
+    d = today.strftime('%B %-d')
     n = find_sequence_in_list(pi_digits, date_digits)
 
     while n < 0:
@@ -49,17 +59,7 @@ def write_message():
         pi = get_pi(precision)
         pi_digits = number_to_digit_list(pi)
         n = find_sequence_in_list(pi_digits, date_digits)
-
-    s = ''
-    if 11 <= n % 100 <= 13:
-        s = 'th'
-    elif n % 10 == 1:
-        s = 'st'
-    elif n % 10 == 2:
-        s = 'nd'
-    elif n % 10 == 3:
-        s = 'rd'
-    else:
-        s = 'th'
-
-    return "{} is just another name for {}{}-Digit-of-Pi Day!\n".format(d,n,s)
+    
+    s1, s2 = number_to_suffix(today.day), number_to_suffix(n)
+    
+    return "{}{} is just another name for {}{}-Digit-of-Pi Day!\n".format(d,s1,n,s2)
